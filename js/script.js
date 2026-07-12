@@ -1,17 +1,16 @@
 // ==========================================
 // GENERAR TARJETAS (CON DESCARGA INTEGRADA)
 // ==========================================
-
 function crearTarjetas(datos, contenedorId) {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
-    // Limpiar el contenedor antes de renderizar (útil para el buscador)
     contenedor.innerHTML = "";
 
     datos.forEach(item => {
         const card = document.createElement("div");
         card.className = "card";
+
         card.innerHTML = `
             <img src="${item.imagen}">
             <div class="infoCard">
@@ -21,9 +20,10 @@ function crearTarjetas(datos, contenedorId) {
                     <button class="playBtn">
                         ▶ Abrir
                     </button>
+
                     <button class="infoBtn" title="Descargar archivo">
                         <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v4"></path>
+                            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
                         </svg>
@@ -32,45 +32,50 @@ function crearTarjetas(datos, contenedorId) {
             </div>
         `;
 
-// --- MANEJO DE DESCARGA DIRECTA (infoBtn) ---
-const btnDescargar = card.querySelector(".infoBtn");
+        // -------------------------
+        // BOTÓN ABRIR
+        // -------------------------
+        const btnAbrir = card.querySelector(".playBtn");
 
-btnDescargar.addEventListener("click", (e) => {
-    // Evita que también se abra el visor
-    e.stopPropagation();
+        btnAbrir.addEventListener("click", () => {
+            actualizarHero(item);
+            abrirDocumento(item);
+        });
 
-    if (!item.archivo || item.archivo === "#") {
-        alert("Este elemento no contiene un archivo para descargar.");
-        return;
-    }
+        // -------------------------
+        // BOTÓN DESCARGAR
+        // -------------------------
+        const btnDescargar = card.querySelector(".infoBtn");
 
-    try {
-        // Convierte la ruta relativa a una URL absoluta
-        const archivoURL = new URL(item.archivo, window.location.href).href;
+        btnDescargar.addEventListener("click", (e) => {
+            e.stopPropagation();
 
-        // Obtiene el nombre del archivo
-        const nombreArchivo = decodeURIComponent(
-            archivoURL.split("/").pop()
-        );
+            if (!item.archivo || item.archivo === "#") {
+                alert("Este elemento no contiene un archivo para descargar.");
+                return;
+            }
 
-        // Crea un enlace temporal para iniciar la descarga
-        const enlace = document.createElement("a");
-        enlace.href = archivoURL;
-        enlace.download = nombreArchivo;
-        enlace.style.display = "none";
+            try {
+                const archivoURL = new URL(item.archivo, window.location.href).href;
 
-        document.body.appendChild(enlace);
-        enlace.click();
-        document.body.removeChild(enlace);
+                const enlace = document.createElement("a");
+                enlace.href = archivoURL;
+                enlace.download = "";
+                enlace.style.display = "none";
 
-    } catch (error) {
-        console.error("Error al descargar:", error);
-        alert("No fue posible descargar el archivo.");
-    }
-});
+                document.body.appendChild(enlace);
+                enlace.click();
+                document.body.removeChild(enlace);
 
+            } catch (error) {
+                console.error("Error al descargar:", error);
+                alert("No fue posible descargar el archivo.");
+            }
+        });
+
+        // Agregar la tarjeta al contenedor
+        contenedor.appendChild(card);
     });
-
 }
 // ==========================================
 // ACTUALIZAR HERO (CAMBIO ULTRA FLUIDO)
