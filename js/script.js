@@ -35,43 +35,58 @@ function crearTarjetas(datos, contenedorId) {
         // -------------------------
         // BOTÓN ABRIR
         // -------------------------
-        const btnAbrir = card.querySelector(".playBtn");
-
-        btnAbrir.addEventListener("click", () => {
-            actualizarHero(item);
-            abrirDocumento(item);
-        });
-
-        // -------------------------
-        // BOTÓN DESCARGAR
-        // -------------------------
         const btnDescargar = card.querySelector(".infoBtn");
 
-        btnDescargar.addEventListener("click", (e) => {
-            e.stopPropagation();
+btnDescargar.addEventListener("click", async (e) => {
+    e.stopPropagation();
 
-            if (!item.archivo || item.archivo === "#") {
-                alert("Este elemento no contiene un archivo para descargar.");
-                return;
-            }
+    if (!item.archivo || item.archivo === "#") {
+        alert("Este elemento no contiene un archivo para descargar.");
+        return;
+    }
 
-            try {
-                const archivoURL = new URL(item.archivo, window.location.href).href;
+    try {
+        document.body.style.cursor = "wait";
 
-                const enlace = document.createElement("a");
-                enlace.href = archivoURL;
-                enlace.download = "";
-                enlace.style.display = "none";
+        // Convierte la ruta relativa a una URL absoluta
+        const archivoURL = new URL(item.archivo, window.location.href).href;
 
-                document.body.appendChild(enlace);
-                enlace.click();
-                document.body.removeChild(enlace);
+        // Descarga el archivo
+        const respuesta = await fetch(archivoURL);
 
-            } catch (error) {
-                console.error("Error al descargar:", error);
-                alert("No fue posible descargar el archivo.");
-            }
-        });
+        if (!respuesta.ok) {
+            throw new Error("No se pudo descargar el archivo.");
+        }
+
+        const blob = await respuesta.blob();
+
+        // Crear URL temporal
+        const urlBlob = URL.createObjectURL(blob);
+
+        // Nombre del archivo
+        const nombreArchivo = decodeURIComponent(
+            archivoURL.substring(archivoURL.lastIndexOf("/") + 1)
+        );
+
+        // Descargar
+        const enlace = document.createElement("a");
+        enlace.href = urlBlob;
+        enlace.download = nombreArchivo;
+
+        document.body.appendChild(enlace);
+        enlace.click();
+        document.body.removeChild(enlace);
+
+        // Liberar memoria
+        URL.revokeObjectURL(urlBlob);
+
+    } catch (error) {
+        console.error(error);
+        alert("No fue posible descargar el archivo.");
+    } finally {
+        document.body.style.cursor = "default";
+    }
+});
 
         // Agregar la tarjeta al contenedor
         contenedor.appendChild(card);
