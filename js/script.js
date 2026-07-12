@@ -33,9 +33,10 @@ function crearTarjetas(datos, contenedorId) {
         `;
 
         // --- MANEJO DE DESCARGA DIRECTA (infoBtn) ---
+        // --- MANEJO DE DESCARGA DIRECTA (infoBtn) INTERCEPTADA ---
         const btnDescargar = card.querySelector(".infoBtn");
-        btnDescargar.addEventListener("click", (e) => {
-            // Detiene la propagación para que no se abra el visor al descargar
+        btnDescargar.addEventListener("click", async (e) => {
+            // Evita que el click abra también el modal del visor
             e.stopPropagation(); 
 
             if (!item.archivo || item.archivo === "#") {
@@ -43,31 +44,40 @@ function crearTarjetas(datos, contenedorId) {
                 return;
             }
 
-            const enlaceTemporal = document.createElement("a");
-            enlaceTemporal.href = item.archivo;
-            
-            // Extrae el nombre real del documento con su extensión (.pdf, .xlsx, etc.)
-            const nombreArchivo = item.archivo.split('/').pop();
-            enlaceTemporal.download = nombreArchivo;
+            try {
+                // Cambiamos el cursor temporalmente para dar feedback visual de que está procesando
+                document.body.style.cursor = "wait";
 
-            document.body.appendChild(enlaceTemporal);
-            enlaceTemporal.click();
-            document.body.removeChild(enlaceTemporal);
+                // 1. Descargamos el archivo en segundo plano como datos binarios (Blob)
+                const respuesta = await fetch(item.archivo);
+                if (!respuesta.ok) throw new Error("Error al acceder al archivo");
+                
+                const blob = await respuesta.blob();
+
+                // 2. Creamos una URL local segura en memoria para ese objeto binario
+                const urlBlob = window.URL.createObjectURL(blob);
+                const enlaceTemporal = document.createElement("a");
+                enlaceTemporal.href = urlBlob;
+                
+                // 3. Extraemos el nombre original del archivo
+                const nombreArchivo = item.archivo.split('/').pop();
+                enlaceTemporal.download = nombreArchivo;
+
+                // 4. Simulamos el click invisible y limpiamos la memoria inmediatamente
+                document.body.appendChild(enlaceTemporal);
+                enlaceTemporal.click();
+                
+                document.body.removeChild(enlaceTemporal);
+                window.URL.revokeObjectURL(urlBlob); // Libera la memoria ram del navegador
+
+            } catch (error) {
+                console.error("Fallo en la descarga directa:", error);
+                alert("No se pudo descargar el archivo directamente. Intenta abrirlo primero.");
+            } finally {
+                // Restauramos el cursor a la normalidad
+                document.body.style.cursor = "default";
+            }
         });
-
-        // Cambiar Hero de forma interactiva al pasar el mouse
-        card.addEventListener("mouseenter", () => {
-            actualizarHero(item);
-        });
-
-        // Abrir visor de documentos al dar clic a la tarjeta
-        card.addEventListener("click", () => {
-            abrirDocumento(item);
-        });
-
-        contenedor.appendChild(card);
-    });
-}
 
 // ==========================================
 // ACTUALIZAR HERO (CAMBIO ULTRA FLUIDO)
