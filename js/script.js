@@ -32,8 +32,7 @@ function crearTarjetas(datos, contenedorId) {
             </div>
         `;
 
-        // --- MANEJO DE DESCARGA DIRECTA (infoBtn) ---
-        // --- MANEJO DE DESCARGA DIRECTA (infoBtn) INTERCEPTADA ---
+ // --- MANEJO DE DESCARGA DIRECTA (infoBtn) INTERCEPTADA ---
         const btnDescargar = card.querySelector(".infoBtn");
         btnDescargar.addEventListener("click", async (e) => {
             // Evita que el click abra también el modal del visor
@@ -79,6 +78,9 @@ function crearTarjetas(datos, contenedorId) {
             }
         });
 
+    });
+
+}
 // ==========================================
 // ACTUALIZAR HERO (CAMBIO ULTRA FLUIDO)
 // ==========================================
