@@ -49,14 +49,14 @@ const actividades = [
 // ================================
 const laboratorios = [
     {
-        titulo: "Práctica 1 y 2 - Balance",
+        titulo: "Práctica 1 - Balance",
         descripcion: "Estudiantes problemas D-M y Balance Práctica 1.",
         imagen: "../assets/img/balances.jpg",
         archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 1.xlsx", // Actualizado
         tipo: "excel"
     },
     {
-        titulo: "Práctica 1 y 2 - Balance (Copia)",
+        titulo: "Práctica 2 - Balance",
         descripcion: "Estudiantes problemas D-M y Balance Práctica 2.",
         imagen: "../assets/img/balances.jpg",
         archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 2.xlsx", // Actualizado
