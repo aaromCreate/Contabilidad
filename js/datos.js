@@ -6,7 +6,7 @@ const presentacion = [
         titulo: "Presentación del Estudiante",
         descripcion: "Información general y perfil del estudiante.",
         imagen: "../assets/img/perfil.jpg",
-        archivo: "#" // O puedes enlazar tu documento de perfil si lo tienes
+        archivo: "#"
     },
     {
         titulo: "Descripción del Curso",
@@ -25,7 +25,7 @@ const actividades = [
         titulo: "Taller Individual",
         descripcion: "Práctica individual de Contabilidad.",
         imagen: "../assets/img/html.jpg", 
-        archivo: "../excel/Taller individual Contabilidad  Aaron Ortiz (1).xlsx",
+        archivo: "../excel/Taller individual Contabilidad  Aaron Ortiz.xlsx", // Actualizado
         tipo: "excel"
     },
     {
@@ -50,16 +50,16 @@ const actividades = [
 const laboratorios = [
     {
         titulo: "Práctica 1 y 2 - Balance",
-        descripcion: "Estudiantes problemas D-M y Balance Práctica 1 (Variación 1).",
+        descripcion: "Estudiantes problemas D-M y Balance Práctica 1.",
         imagen: "../assets/img/laboratorio.jpg",
-        archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 1 Y 2  AARON ORTIZ (1).xlsx",
+        archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 1.xlsx", // Actualizado
         tipo: "excel"
     },
     {
         titulo: "Práctica 1 y 2 - Balance (Copia)",
-        descripcion: "Estudiantes problemas D-M y Balance Práctica 2 (Variación 2).",
+        descripcion: "Estudiantes problemas D-M y Balance Práctica 2.",
         imagen: "../assets/img/laboratorio.jpg",
-        archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 1 Y 2  AARON ORTIZ (2).xlsx",
+        archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 2.xlsx", // Actualizado
         tipo: "excel"
     }
 ];
@@ -106,7 +106,7 @@ const material = [
         titulo: "Clasificación de Cuentas",
         descripcion: "Guía interactiva de cuentas A y B.",
         imagen: "../assets/img/material.jpg",
-        archivo: "../excel/CLASIFICACION CUENTAS A Y B (2).xlsx",
+        archivo: "../excel/CLASIFICACION CUENTAS A Y B.xlsx", // Actualizado
         tipo: "excel"
     }
 ];
@@ -126,14 +126,14 @@ const parciales = [
         titulo: "Parcial B",
         descripcion: "Segunda evaluación práctica entregada.",
         imagen: "../assets/img/parcial.jpg",
-        archivo: "../excel/Parcial B Ortiz Aaron (1).xlsx",
+        archivo: "../excel/Parcial B Ortiz Aaron.xlsx", // Actualizado
         tipo: "excel"
     },
     {
         titulo: "Parcial 3",
-        descripcion: "Tercera evaluación de desarrollo.",
+        descripcion: "Prueba de Parcial.",
         imagen: "../assets/img/parcial.jpg",
-        archivo: "../excel/Aaron Ortiz Parcial 3 (1).xlsx",
+        archivo: "../excel/Aaron Ortiz Parcial 3 Prueba.xlsx", // Actualizado
         tipo: "excel"
     }
 ];
