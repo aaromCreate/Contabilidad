@@ -145,7 +145,7 @@ const Parcial = [
         titulo: "Examen Parcial 1 Teórico",
         descripcion: "Evaluación escrita en formato PDF que recopila los fundamentos conceptuales de la primera unidad.",
         imagen: "../assets/img/parcial1_pdf.jpg",
-        archivo: "../Parcial/parcial1.pdf",
+        archivo: "../Parcial/parcial Contabilidad.pdf",
         tipo: "pdf"
     }
 ];
