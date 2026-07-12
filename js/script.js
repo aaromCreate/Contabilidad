@@ -14,23 +14,35 @@ function crearTarjetas(datos, contenedorId) {
 
         card.className = "card";
 
-        card.innerHTML = `
-        
-            <img src="${item.imagen}" alt="${item.titulo}">
+        card.innerHTML=`
 
-            <div class="infoCard">
+<img src="${item.imagen}">
 
-                <h3>${item.titulo}</h3>
+<div class="infoCard">
 
-                <p>${item.descripcion}</p>
+    <h3>${item.titulo}</h3>
 
-                <button class="btnVer">
-                    Ver documento
-                </button>
+    <p>${item.descripcion}</p>
 
-            </div>
+    <div class="accionesCard">
 
-        `;
+        <button class="playBtn">
+
+            ▶ Abrir
+
+        </button>
+
+        <button class="infoBtn">
+
+            ⓘ
+
+        </button>
+
+    </div>
+
+</div>
+
+`;
 
         // Cambiar Hero al pasar el mouse
 
@@ -60,11 +72,21 @@ function crearTarjetas(datos, contenedorId) {
 
 function actualizarHero(item){
 
-    document.getElementById("heroImage").src = item.imagen;
+    const heroImage = document.getElementById("heroImage");
 
-    document.getElementById("heroTitle").textContent = item.titulo;
+    heroImage.style.opacity = "0";
 
-    document.getElementById("heroDescription").textContent = item.descripcion;
+    setTimeout(()=>{
+
+        heroImage.src = item.imagen;
+
+        document.getElementById("heroTitle").textContent = item.titulo;
+
+        document.getElementById("heroDescription").textContent = item.descripcion;
+
+        heroImage.style.opacity="1";
+
+    },250);
 
 }
 //===============================

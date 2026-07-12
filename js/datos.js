@@ -24,21 +24,21 @@ const actividades = [
     {
         titulo: "Taller Individual",
         descripcion: "Práctica individual de Contabilidad.",
-        imagen: "../assets/img/html.jpg", 
+        imagen: "../assets/img/TallerIndividual.jpg", 
         archivo: "../excel/Taller individual Contabilidad  Aaron Ortiz.xlsx", // Actualizado
         tipo: "excel"
     },
     {
         titulo: "Práctica de Cuentas",
         descripcion: "Análisis y manejo de cuentas contables.",
-        imagen: "../assets/img/html.jpg",
+        imagen: "../assets/img/Cuentas.jpg",
         archivo: "../word/Cuentas.docx",
         tipo: "word"
     },
     {
         titulo: "Mapa Mental",
         descripcion: "Representación visual de conceptos clave.",
-        imagen: "../assets/img/html.jpg",
+        imagen: "../assets/img/Mental.jpg",
         archivo: "../pdf/mapaMental (1).pdf",
         tipo: "pdf"
     }
@@ -51,14 +51,14 @@ const laboratorios = [
     {
         titulo: "Práctica 1 y 2 - Balance",
         descripcion: "Estudiantes problemas D-M y Balance Práctica 1.",
-        imagen: "../assets/img/laboratorio.jpg",
+        imagen: "../assets/img/balances.jpg",
         archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 1.xlsx", // Actualizado
         tipo: "excel"
     },
     {
         titulo: "Práctica 1 y 2 - Balance (Copia)",
         descripcion: "Estudiantes problemas D-M y Balance Práctica 2.",
-        imagen: "../assets/img/laboratorio.jpg",
+        imagen: "../assets/img/balances.jpg",
         archivo: "../excel/ESTUDIANTES PROBLEMAS D-M Y BALANCE PRACTICA 2.xlsx", // Actualizado
         tipo: "excel"
     }
@@ -71,17 +71,18 @@ const proyectos = [
     {
         titulo: "Trabajo Grupal No. 1",
         descripcion: "Estudio de caso e investigación: Proyecto Theranos.",
-        imagen: "../assets/img/proyecto.jpg",
+        imagen: "../assets/img/theranos.jpg",
         archivo: "../word/UTP TRABAJO GRUPAL No. THERANOS (1).docx",
         tipo: "word"
     },
-    {
-        titulo: "Planilla de Pago",
-        descripcion: "Estructura y diseño de una planilla automatizada.",
-        imagen: "../assets/img/proyecto.jpg",
-        archivo: "../ppt/PLANILLA DE PAGO.ppt",
+        {
+        titulo: "Presentación Planilla de Pagos",
+        descripcion: "Presentacion realizada por el grupo No. 5 Sobre Planillas",
+        imagen: "../assets/img/planilla.jpg",
+        archivo: "../ppt/Planilla Presentacion.pptx",
         tipo: "ppt"
     }
+
 ];
 
 // ================================
@@ -108,6 +109,13 @@ const material = [
         imagen: "../assets/img/material.jpg",
         archivo: "../excel/CLASIFICACION CUENTAS A Y B.xlsx", // Actualizado
         tipo: "excel"
+    },
+        {
+        titulo: "Planilla de Pago",
+        descripcion: "Estructura y diseño de una planilla automatizada.",
+        imagen: "../assets/img/proyecto.jpg",
+        archivo: "../ppt/PLANILLA DE PAGO.ppt",
+        tipo: "ppt"
     }
 ];
 
