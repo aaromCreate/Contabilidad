@@ -13,7 +13,7 @@ const Presentacion = [
     {
         titulo: "Portada del Portafolio",
         descripcion: "Presentación oficial del estudiante, institución, carrera y datos del curso.",
-        imagen: "../assets/img/portada_main.jpg",
+        imagen: "../assets/img/portada.jpg",
         archivo: "../Presentacion/Portada.pdf",
         tipo: "pdf"
     }
@@ -65,7 +65,7 @@ const Actividades = [
     {
         titulo: "Trabajo Grupal No. 1 - Caso Theranos",
         descripcion: "Análisis ético, financiero y administrativo del fraude de la corporación Theranos.",
-        imagen: "../assets/img/caso_theranos.jpg",
+        imagen: "../assets/img/theranos.jpg",
         archivo: "../Actividades/UTP TRABAJO GRUPAL No. THERANOS.docx",
         tipo: "word"
     }

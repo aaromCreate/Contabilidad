@@ -180,6 +180,41 @@ function inicializarPortafolio() {
     crearTarjetas(Parcial, "listaParcial");
     crearTarjetas(conclusion, "listaConclusion");
 }
+// ==========================================
+// LÓGICA DE DESPLAZAMIENTO (FLECHAS ❮ Y ❯)
+// ==========================================
+
+function configurarFlechas() {
+    // Buscamos todas las secciones que tengan un título y una fila
+    const secciones = document.querySelectorAll('main section');
+
+    secciones.forEach(seccion => {
+        const btnIzquierda = seccion.querySelector('.flecha.izquierda');
+        const btnDerecha = seccion.querySelector('.flecha.derecha');
+        const fila = seccion.querySelector('.fila');
+
+        // Si la sección tiene ambos botones y su respectiva fila, activamos los clicks
+        if (btnIzquierda && btnDerecha && fila) {
+            
+            btnIzquierda.addEventListener('click', () => {
+                fila.scrollBy({
+                    left: -400, // Se mueve 400px a la izquierda
+                    behavior: 'smooth' // Desplazamiento fluido animado
+                });
+            });
+
+            btnDerecha.addEventListener('click', () => {
+                fila.scrollBy({
+                    left: 400, // Se mueve 400px a la derecha
+                    behavior: 'smooth'
+                });
+            });
+        }
+    });
+}
+
+// Asegúrate de llamarla justo debajo de inicializarPortafolio();
+configurarFlechas();
 
 // Ejecutar carga inicial
 inicializarPortafolio();
