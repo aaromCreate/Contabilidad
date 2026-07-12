@@ -1,6 +1,9 @@
 // ==========================================
 // GENERAR TARJETAS (CON DESCARGA INTEGRADA)
 // ==========================================
+// ==========================================
+// GENERAR TARJETAS (CON DESCARGA INTEGRADA)
+// ==========================================
 function crearTarjetas(datos, contenedorId) {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
@@ -12,17 +15,21 @@ function crearTarjetas(datos, contenedorId) {
         card.className = "card";
 
         card.innerHTML = `
-            <img src="${item.imagen}">
+            <img src="${item.imagen}" alt="${item.titulo}">
             <div class="infoCard">
                 <h3>${item.titulo}</h3>
                 <p>${item.descripcion}</p>
+
                 <div class="accionesCard">
                     <button class="playBtn">
                         ▶ Abrir
                     </button>
 
                     <button class="infoBtn" title="Descargar archivo">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18"
+                            viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2.5"
+                            stroke-linecap="round" stroke-linejoin="round">
                             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                             <polyline points="7 10 12 15 17 10"></polyline>
                             <line x1="12" y1="15" x2="12" y2="3"></line>
@@ -32,63 +39,67 @@ function crearTarjetas(datos, contenedorId) {
             </div>
         `;
 
-        // -------------------------
+        // ==========================
         // BOTÓN ABRIR
-        // -------------------------
+        // ==========================
+        const btnAbrir = card.querySelector(".playBtn");
+
+        btnAbrir.addEventListener("click", (e) => {
+            e.stopPropagation();
+            actualizarHero(item);
+            abrirDocumento(item);
+        });
+
+        // ==========================
+        // BOTÓN DESCARGAR
+        // ==========================
         const btnDescargar = card.querySelector(".infoBtn");
 
-btnDescargar.addEventListener("click", async (e) => {
-    e.stopPropagation();
+        btnDescargar.addEventListener("click", async (e) => {
+            e.stopPropagation();
 
-    if (!item.archivo || item.archivo === "#") {
-        alert("Este elemento no contiene un archivo para descargar.");
-        return;
-    }
+            if (!item.archivo || item.archivo === "#") {
+                alert("Este elemento no contiene un archivo para descargar.");
+                return;
+            }
 
-    try {
-        document.body.style.cursor = "wait";
+            try {
+                document.body.style.cursor = "wait";
 
-        // Convierte la ruta relativa a una URL absoluta
-        const archivoURL = new URL(item.archivo, window.location.href).href;
+                const archivoURL = new URL(item.archivo, window.location.href).href;
 
-        // Descarga el archivo
-        const respuesta = await fetch(archivoURL);
+                const respuesta = await fetch(archivoURL);
 
-        if (!respuesta.ok) {
-            throw new Error("No se pudo descargar el archivo.");
-        }
+                if (!respuesta.ok) {
+                    throw new Error("No se pudo descargar el archivo.");
+                }
 
-        const blob = await respuesta.blob();
+                const blob = await respuesta.blob();
 
-        // Crear URL temporal
-        const urlBlob = URL.createObjectURL(blob);
+                const urlBlob = URL.createObjectURL(blob);
 
-        // Nombre del archivo
-        const nombreArchivo = decodeURIComponent(
-            archivoURL.substring(archivoURL.lastIndexOf("/") + 1)
-        );
+                const nombreArchivo = decodeURIComponent(
+                    archivoURL.split("/").pop()
+                );
 
-        // Descargar
-        const enlace = document.createElement("a");
-        enlace.href = urlBlob;
-        enlace.download = nombreArchivo;
+                const enlace = document.createElement("a");
+                enlace.href = urlBlob;
+                enlace.download = nombreArchivo;
 
-        document.body.appendChild(enlace);
-        enlace.click();
-        document.body.removeChild(enlace);
+                document.body.appendChild(enlace);
+                enlace.click();
+                document.body.removeChild(enlace);
 
-        // Liberar memoria
-        URL.revokeObjectURL(urlBlob);
+                URL.revokeObjectURL(urlBlob);
 
-    } catch (error) {
-        console.error(error);
-        alert("No fue posible descargar el archivo.");
-    } finally {
-        document.body.style.cursor = "default";
-    }
-});
+            } catch (error) {
+                console.error(error);
+                alert("No fue posible descargar el archivo.");
+            } finally {
+                document.body.style.cursor = "default";
+            }
+        });
 
-        // Agregar la tarjeta al contenedor
         contenedor.appendChild(card);
     });
 }
