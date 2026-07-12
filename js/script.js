@@ -32,51 +32,42 @@ function crearTarjetas(datos, contenedorId) {
             </div>
         `;
 
- // --- MANEJO DE DESCARGA DIRECTA (infoBtn) INTERCEPTADA ---
-        const btnDescargar = card.querySelector(".infoBtn");
-        btnDescargar.addEventListener("click", async (e) => {
-            // Evita que el click abra también el modal del visor
-            e.stopPropagation(); 
+// --- MANEJO DE DESCARGA DIRECTA (infoBtn) ---
+const btnDescargar = card.querySelector(".infoBtn");
 
-            if (!item.archivo || item.archivo === "#") {
-                alert("Este elemento no contiene un archivo para descargar.");
-                return;
-            }
+btnDescargar.addEventListener("click", (e) => {
+    // Evita que también se abra el visor
+    e.stopPropagation();
 
-            try {
-                // Cambiamos el cursor temporalmente para dar feedback visual de que está procesando
-                document.body.style.cursor = "wait";
+    if (!item.archivo || item.archivo === "#") {
+        alert("Este elemento no contiene un archivo para descargar.");
+        return;
+    }
 
-                // 1. Descargamos el archivo en segundo plano como datos binarios (Blob)
-                const respuesta = await fetch(item.archivo);
-                if (!respuesta.ok) throw new Error("Error al acceder al archivo");
-                
-                const blob = await respuesta.blob();
+    try {
+        // Convierte la ruta relativa a una URL absoluta
+        const archivoURL = new URL(item.archivo, window.location.href).href;
 
-                // 2. Creamos una URL local segura en memoria para ese objeto binario
-                const urlBlob = window.URL.createObjectURL(blob);
-                const enlaceTemporal = document.createElement("a");
-                enlaceTemporal.href = urlBlob;
-                
-                // 3. Extraemos el nombre original del archivo
-                const nombreArchivo = item.archivo.split('/').pop();
-                enlaceTemporal.download = nombreArchivo;
+        // Obtiene el nombre del archivo
+        const nombreArchivo = decodeURIComponent(
+            archivoURL.split("/").pop()
+        );
 
-                // 4. Simulamos el click invisible y limpiamos la memoria inmediatamente
-                document.body.appendChild(enlaceTemporal);
-                enlaceTemporal.click();
-                
-                document.body.removeChild(enlaceTemporal);
-                window.URL.revokeObjectURL(urlBlob); // Libera la memoria ram del navegador
+        // Crea un enlace temporal para iniciar la descarga
+        const enlace = document.createElement("a");
+        enlace.href = archivoURL;
+        enlace.download = nombreArchivo;
+        enlace.style.display = "none";
 
-            } catch (error) {
-                console.error("Fallo en la descarga directa:", error);
-                alert("No se pudo descargar el archivo directamente. Intenta abrirlo primero.");
-            } finally {
-                // Restauramos el cursor a la normalidad
-                document.body.style.cursor = "default";
-            }
-        });
+        document.body.appendChild(enlace);
+        enlace.click();
+        document.body.removeChild(enlace);
+
+    } catch (error) {
+        console.error("Error al descargar:", error);
+        alert("No fue posible descargar el archivo.");
+    }
+});
 
     });
 
