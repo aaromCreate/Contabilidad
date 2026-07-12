@@ -6,6 +6,9 @@ function crearTarjetas(datos, contenedorId) {
     const contenedor = document.getElementById(contenedorId);
     if (!contenedor) return;
 
+    // Limpiar el contenedor antes de renderizar (útil para el buscador)
+    contenedor.innerHTML = "";
+
     datos.forEach(item => {
         const card = document.createElement("div");
         card.className = "card";
@@ -32,6 +35,7 @@ function crearTarjetas(datos, contenedorId) {
         // --- MANEJO DE DESCARGA DIRECTA (infoBtn) ---
         const btnDescargar = card.querySelector(".infoBtn");
         btnDescargar.addEventListener("click", (e) => {
+            // Detiene la propagación para que no se abra el visor al descargar
             e.stopPropagation(); 
 
             if (!item.archivo || item.archivo === "#") {
@@ -42,6 +46,7 @@ function crearTarjetas(datos, contenedorId) {
             const enlaceTemporal = document.createElement("a");
             enlaceTemporal.href = item.archivo;
             
+            // Extrae el nombre real del documento con su extensión (.pdf, .xlsx, etc.)
             const nombreArchivo = item.archivo.split('/').pop();
             enlaceTemporal.download = nombreArchivo;
 
@@ -75,15 +80,46 @@ function actualizarHero(item) {
 
     if (!heroImage) return;
 
+    // 1. Desvanecer la imagen anterior (Opacidad a 0)
     heroImage.style.opacity = "0";
 
+    // 2. Esperar que culmine el fade-out para actualizar datos limpios
     setTimeout(() => {
         heroImage.src = item.imagen;
         if (heroTitle) heroTitle.textContent = item.titulo;
         if (heroDescription) heroDescription.textContent = item.descripcion;
 
+        // 3. Traer de vuelta la opacidad a 1 usando la animación de CSS
         heroImage.style.opacity = "1";
     }, 300); 
+}
+
+// ==========================================
+// SISTEMA DE FILTRADO (BARRA DE BÚSQUEDA)
+// ==========================================
+
+const buscador = document.getElementById("buscador");
+
+if (buscador) {
+    buscador.addEventListener("input", (e) => {
+        const termino = e.target.value.toLowerCase().trim();
+
+        // Helper interno para filtrar arreglos por título o descripción
+        const filtrar = (arreglo) => {
+            return arreglo.filter(item => 
+                item.titulo.toLowerCase().includes(termino) || 
+                item.descripcion.toLowerCase().includes(termino)
+            );
+        };
+
+        // Renderizar dinámicamente con los datos filtrados
+        crearTarjetas(filtrar(Presentacion), "listaPresentacion");
+        crearTarjetas(filtrar(Actividades), "listaActividades");
+        crearTarjetas(filtrar(Exposicion), "listaExposicion");
+        crearTarjetas(filtrar(Material), "listaMaterial");
+        crearTarjetas(filtrar(Parcial), "listaParcial");
+        crearTarjetas(filtrar(conclusion), "listaConclusion");
+    });
 }
 
 // ==========================================
@@ -119,6 +155,7 @@ function abrirDocumento(item) {
     modal.classList.add("activo");
 }
 
+// Eventos de cierre del Modal
 cerrar?.addEventListener("click", () => {
     if (visor) visor.src = "";
     modal?.classList.remove("activo");
@@ -132,13 +169,17 @@ modal?.addEventListener("click", (e) => {
 });
 
 // ==========================================
-// INICIALIZACIÓN DE SECCIONES
+// INICIALIZACIÓN DE LAS SECCIONES
 // ==========================================
 
-crearTarjetas(presentacion, "listaPresentacion");
-crearTarjetas(actividades, "listaActividades");
-crearTarjetas(laboratorios, "listaLaboratorios");
-crearTarjetas(proyectos, "listaProyectos");
-crearTarjetas(material, "listaMaterial");
-crearTarjetas(parciales, "listaParciales");
-crearTarjetas(conclusion, "listaConclusion");
+function inicializarPortafolio() {
+    crearTarjetas(Presentacion, "listaPresentacion");
+    crearTarjetas(Actividades, "listaActividades");
+    crearTarjetas(Exposicion, "listaExposicion");
+    crearTarjetas(Material, "listaMaterial");
+    crearTarjetas(Parcial, "listaParcial");
+    crearTarjetas(conclusion, "listaConclusion");
+}
+
+// Ejecutar carga inicial
+inicializarPortafolio();

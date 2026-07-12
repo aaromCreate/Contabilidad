@@ -2,37 +2,35 @@
 <html lang="es">
 
 <head>
-
     <meta charset="UTF-8">
-
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
     <title>Portafolio Académico</title>
-
     <link rel="stylesheet" href="../css/variables.css">
     <link rel="stylesheet" href="../css/estilos.css">
-
 </head>
 
 <body>
 
-    <!--================ HEADER ================-->
     <header>
         <div class="logo">
-
             🎓 Portfolio+
         </div>
+
+        <div class="buscador-container">
+            <input type="text" id="buscador" placeholder="Buscar laboratorios, parciales, proyectos...">
+            <span class="icono-buscar">🔍</span>
+        </div>
+
         <nav>
-            <a href="#presentacion">Presentación</a>
-            <a href="#actividades">Actividades</a>
-            <a href="#laboratorios">Laboratorios</a>
-            <a href="#proyectos">Proyectos</a>
-            <a href="#material">Material</a>
-            <a href="#parciales">Parciales</a>
+            <a href="#Presentacion">Presentación</a>
+            <a href="#Actividades">Actividades</a>
+            <a href="#Exposicion">Exposiciones</a>
+            <a href="#Material">Material</a>
+            <a href="#Parcial">Parciales</a>
             <a href="#conclusion">Conclusión</a>
         </nav>
     </header>
-    <!--================ HERO ================-->
+
     <section class="hero">
         <div class="hero-background">
             <img id="heroImage" src="../assets/img/banner.jpg" alt="Banner">
@@ -45,17 +43,16 @@
             <h1 id="heroTitle">
                 Desarrollo de Aplicaciones Web
             </h1>
-    
             <p id="heroDescription">
                 Explora proyectos, laboratorios, actividades, evaluaciones y material didáctico mediante una experiencia
                 interactiva inspirada en plataformas de streaming.
             </p>
         </div>
     </section>
-    <!--================ CONTENIDO ================-->
+
     <main>
-        <!-- PRESENTACIÓN -->
-        <section id="presentacion" data-color="#2563eb">
+
+        <section id="Presentacion">
             <div class="tituloSeccion">
                 <h2>📘 Presentación</h2>
                 <div>
@@ -65,10 +62,10 @@
             </div>
             <div class="fila" id="listaPresentacion"></div>
         </section>
-        <!-- ACTIVIDADES -->
-        <section id="actividades" data-color="#16a34a">
+
+        <section id="Actividades">
             <div class="tituloSeccion">
-                <h2>📝 Actividades</h2>
+                <h2>📝 Actividades y Talleres</h2>
                 <div>
                     <button class="flecha izquierda">❮</button>
                     <button class="flecha derecha">❯</button>
@@ -76,30 +73,19 @@
             </div>
             <div class="fila" id="listaActividades"></div>
         </section>
-        <!-- LABORATORIOS -->
-        <section id="laboratorios" data-color="#9333ea">
+
+        <section id="Exposicion">
             <div class="tituloSeccion">
-                <h2>🧪 Laboratorios</h2>
+                <h2>📢 Exposición y Charlas</h2>
                 <div>
                     <button class="flecha izquierda">❮</button>
                     <button class="flecha derecha">❯</button>
                 </div>
             </div>
-            <div class="fila" id="listaLaboratorios"></div>
+            <div class="fila" id="listaExposicion"></div>
         </section>
-        <!-- PROYECTOS -->
-        <section id="proyectos" data-color="#ea580c">
-            <div class="tituloSeccion">
-                <h2>💻 Proyectos</h2>
-                <div>
-                    <button class="flecha izquierda">❮</button>
-                    <button class="flecha derecha">❯</button>
-                </div>
-            </div>
-            <div class="fila" id="listaProyectos"></div>
-        </section>
-        <!-- MATERIAL -->
-        <section id="material" data-color="#dc2626">
+
+        <section id="Material">
             <div class="tituloSeccion">
                 <h2>📚 Material Didáctico</h2>
                 <div>
@@ -109,19 +95,19 @@
             </div>
             <div class="fila" id="listaMaterial"></div>
         </section>
-        <!-- PARCIALES -->
-        <section id="parciales" data-color="#0ea5e9">
+
+        <section id="Parcial">
             <div class="tituloSeccion">
-                <h2>📝 Parciales</h2>
+                <h2>📝 Evaluaciones Parciales</h2>
                 <div>
                     <button class="flecha izquierda">❮</button>
                     <button class="flecha derecha">❯</button>
                 </div>
             </div>
-            <div class="fila" id="listaParciales"></div>
+            <div class="fila" id="listaParcial"></div>
         </section>
-        <!-- CONCLUSIÓN -->
-        <section id="conclusion" data-color="#64748b">
+
+        <section id="conclusion">
             <div class="tituloSeccion">
                 <h2>🎓 Conclusión</h2>
                 <div>
@@ -131,22 +117,21 @@
             </div>
             <div class="fila" id="listaConclusion"></div>
         </section>
+
     </main>
-    <!--================ MODAL ================-->
+
     <div id="modal" class="modal">
         <div class="modalContenido">
             <div class="modalHeader">
                 <h2 id="modalTitulo"></h2>
-                <button id="cerrarModal">
-                    ✕
-                </button>
+                <button id="cerrarModal">✕</button>
             </div>
-            <iframe id="visorPDF" src="" frameborder="0">
-            </iframe>
+            <iframe id="visorPDF" src="" frameborder="0"></iframe>
         </div>
     </div>
-    <!--================ SCRIPTS ================-->
+
     <script src="../js/datos.js"></script>
     <script src="../js/script.js"></script>
 </body>
+
 </html>
