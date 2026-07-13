@@ -93,8 +93,8 @@ const Material = [
         titulo: "Catálogo de Cuentas y Reglas",
         descripcion: "Guía maestra del catálogo de cuentas institucionales y reglas de afectación del debe y el haber.",
         imagen: "../assets/img/catalogo_cuentas.jpg",
-        archivo: "../Material/CATALOGO_DE_CUENTAS_Y_REGLAS_DE_AFECTACION.docx",
-        tipo: "word"
+        archivo: "../Material/CATALOGO_DE_CUENTAS_Y_REGLAS_DE_AFECTACION.pdf",
+        tipo: "pdf"
     },
     {
         titulo: "Clase No. 1 - Sistemas",
